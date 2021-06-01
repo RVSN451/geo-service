@@ -71,6 +71,7 @@ class MessageSenderImplTest {
     public void messageSenderCallGeoServiceByIp(){
 
         Map<String, String> headers = new HashMap<String, String>();
+        headers.put(MessageSenderImpl.IP_ADDRESS_HEADER, "172.123.12.19");
 
         GeoService geoService = Mockito.mock(GeoService.class);
         when(geoService.byIp(any(String.class)))
@@ -82,6 +83,6 @@ class MessageSenderImplTest {
         MessageSender messageSender = new MessageSenderImpl(geoService, localizationService);
         messageSender.send(headers);
 
-        Mockito.verify(geoService,Mockito.only());
+        Mockito.verify(geoService, Mockito.only()).byIp("172.123.12.19");
     }
 }
